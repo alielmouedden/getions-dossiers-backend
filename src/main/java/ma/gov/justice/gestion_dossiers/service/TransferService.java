@@ -1,17 +1,16 @@
 package ma.gov.justice.gestion_dossiers.service;
 
-import ma.gov.justice.gestion_dossiers.entity.User;
+import ma.gov.justice.gestion_dossiers.entity.Transfer;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
-    List<User> getAllUsers();
-    Optional<User> getUserById(Long id);
-    User createUser(User user);
-    User updateUser(Long id, User user);
-    void deleteUser(Long id);
-    Optional<User> getUserByUsername(String username);
-    void forgotPassword(String email);
-    void changePassword(Long userId, String newPassword);
+public interface TransferService {
+    List<Transfer> getAllTransfers();
+    Optional<Transfer> getTransferById(Long id);
+    Transfer createTransfer(Transfer transfer);
+    Transfer updateTransfer(Long id, Transfer transfer);
+    void deleteTransfer(Long id);
+    List<Transfer> getTransfersByFolder(Long folderId);
+    List<Transfer> getMyTransfers();
 }

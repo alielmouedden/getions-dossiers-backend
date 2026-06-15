@@ -2,22 +2,10 @@ spring:
   application:
     name: gestion-dossiers
   datasource:
-<<<<<<< HEAD
-    url: jdbc:mysql://localhost:3306/justice_hub?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/justice_hub?createDatabaseIfNotExist=true&serverTimezone=UTC
     username: root
-    password: 
+    password: ""
     driver-class-name: com.mysql.cj.jdbc.Driver
-=======
-    url: jdbc:h2:mem:justice_hub;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    username: sa
-    password: 
-    driver-class-name: org.h2.Driver
-
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
->>>>>>> ff64814a4e36202049e25519baf548e5db4fb72b
 
   jpa:
     hibernate:
@@ -25,8 +13,18 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
+
+  mail:
+    host: localhost
+    port: 25
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
 
 
 server:
