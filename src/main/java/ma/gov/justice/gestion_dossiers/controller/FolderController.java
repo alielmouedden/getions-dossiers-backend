@@ -76,6 +76,7 @@ public class FolderController {
         }
         folderDetails.setFolderSymbol(request.folderSymbol());
         folderDetails.setFolderNumber(request.folderNumber());
+        folderDetails.setFolderYear(request.folderYear());
 
         Folder updated = folderService.updateFolder(id, folderDetails);
         return ResponseEntity.ok(updated);
