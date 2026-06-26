@@ -15,6 +15,12 @@ public interface FolderRepository extends JpaRepository<Folder, Long> {
     boolean existsByFolderSymbolAndFolderYearAndFolderNumber(String folderSymbol, Integer folderYear, String folderNumber);
     boolean existsByFolderSymbolAndFolderYearAndFolderNumberAndFolderIdNot(String folderSymbol, Integer folderYear, String folderNumber, Long folderId);
 
+    @Query("SELECT f FROM Folder f WHERE LOWER(f.folderNumber) = LOWER(:number) AND LOWER(f.folderSymbol) = LOWER(:symbol) AND f.folderYear = :year")
+    java.util.Optional<Folder> findByDetails(
+            @Param("number") String number,
+            @Param("symbol") String symbol,
+            @Param("year") Integer year);
+
     // 1) Folders created by user and NOT used in any Transfer
     @Query("""
            SELECT f FROM Folder f

@@ -39,6 +39,12 @@ public class AuthController {
     @Autowired
     SystemLogService logService;
 
+    @Autowired
+    ma.gov.justice.gestion_dossiers.repository.FolderRepository folderRepository;
+
+    @Autowired
+    ma.gov.justice.gestion_dossiers.repository.TransferRepository transferRepository;
+
     @PostMapping("/login")
     @Operation(summary = "Authenticate user and return JWT token")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -92,5 +98,27 @@ public class AuthController {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         userService.changePassword(userDetails.getId(), request.getNewPassword());
         return ResponseEntity.ok("Le mot de passe a été changé avec succès.");
+    }
+
+    @GetMapping("/folders/lookup")
+    @Operation(summary = "Public lookup of a dossier and its transfers without authentication")
+    public ResponseEntity<?> lookupFolderPublic(
+            @RequestParam("number") String number,
+            @RequestParam("symbol") String symbol,
+            @RequestParam("year") Integer year) {
+        
+        java.util.Optional<ma.gov.justice.gestion_dossiers.entity.Folder> folderOpt = folderRepository.findByDetails(number, symbol, year);
+        if (folderOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        ma.gov.justice.gestion_dossiers.entity.Folder folder = folderOpt.get();
+        List<ma.gov.justice.gestion_dossiers.entity.Transfer> transfers = transferRepository.findByFolder(folder);
+        
+        java.util.Map<String, Object> response = new java.util.HashMap<>();
+        response.put("folder", folder);
+        response.put("transfers", transfers);
+        
+        return ResponseEntity.ok(response);
     }
 }
