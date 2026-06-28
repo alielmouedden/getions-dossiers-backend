@@ -1,7 +1,7 @@
 package ma.gov.justice.gestion_dossiers.controller;
 
 import jakarta.validation.Valid;
-import ma.gov.justice.gestion_dossiers.entity.RequestTransferHistory;
+import ma.gov.justice.gestion_dossiers.dto.RequestTransferHistoryResponseDto;
 import ma.gov.justice.gestion_dossiers.service.RequestTransferHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,22 +21,22 @@ public class RequestTransferHistoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RequestTransferHistory>> getAllHistory() {
+    public ResponseEntity<List<RequestTransferHistoryResponseDto>> getAllHistory() {
         return ResponseEntity.ok(historyService.getAllHistory());
     }
 
     @PostMapping("/folders")
-    public ResponseEntity<List<RequestTransferHistory>> getHistoryByFolders(@RequestBody List<Long> folderIds) {
+    public ResponseEntity<List<RequestTransferHistoryResponseDto>> getHistoryByFolders(@RequestBody List<Long> folderIds) {
         return ResponseEntity.ok(historyService.getHistoryByFolders(folderIds));
     }
 
     @GetMapping("/folder/{folderId}")
-    public ResponseEntity<List<RequestTransferHistory>> getHistoryByFolder(@PathVariable Long folderId) {
+    public ResponseEntity<List<RequestTransferHistoryResponseDto>> getHistoryByFolder(@PathVariable Long folderId) {
         return ResponseEntity.ok(historyService.getHistoryByFolder(folderId));
     }
 
     @GetMapping("/transfer/{transferId}")
-    public ResponseEntity<List<RequestTransferHistory>> getHistoryByTransfer(@PathVariable Long transferId) {
+    public ResponseEntity<List<RequestTransferHistoryResponseDto>> getHistoryByTransfer(@PathVariable Long transferId) {
         return ResponseEntity.ok(historyService.getHistoryByTransfer(transferId));
     }
 }
