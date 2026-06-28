@@ -11,4 +11,5 @@ public interface RequestTransferHistoryService {
     List<RequestTransferHistory> getHistoryByFolders(List<Long> folderIds);
     List<RequestTransferHistory> getHistoryByFolder(Long folderId);
     List<RequestTransferHistory> getHistoryByTransfer(Long transferId);
+    List<RequestTransferHistory> getAllHistory();
 }

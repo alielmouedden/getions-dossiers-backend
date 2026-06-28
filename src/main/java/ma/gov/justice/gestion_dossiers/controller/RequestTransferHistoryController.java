@@ -20,6 +20,11 @@ public class RequestTransferHistoryController {
         this.historyService = historyService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<RequestTransferHistory>> getAllHistory() {
+        return ResponseEntity.ok(historyService.getAllHistory());
+    }
+
     @PostMapping("/folders")
     public ResponseEntity<List<RequestTransferHistory>> getHistoryByFolders(@RequestBody List<Long> folderIds) {
         return ResponseEntity.ok(historyService.getHistoryByFolders(folderIds));

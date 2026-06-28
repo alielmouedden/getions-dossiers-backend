@@ -8,6 +8,7 @@ import ma.gov.justice.gestion_dossiers.repository.RequestTransferHistoryReposito
 import ma.gov.justice.gestion_dossiers.repository.RequestTransferRepository;
 import ma.gov.justice.gestion_dossiers.service.RequestTransferHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -44,6 +45,11 @@ public class RequestTransferHistoryServiceImpl implements RequestTransferHistory
     @Override
     public List<RequestTransferHistory> getHistoryByTransfer(Long transferId) {
         return historyRepository.findByRequestTransferTransferTransferId(transferId);
+    }
+
+    @Override
+    public List<RequestTransferHistory> getAllHistory() {
+        return historyRepository.findAll(Sort.by(Sort.Direction.DESC, "historyId"));
     }
 }
 
